@@ -46,7 +46,7 @@ resource "aws_instance" "rabbitmq" {
   })
 }
 
-resource "aws_route53_record" "www" {
+resource "aws_route53_record" "rabbitmq" {
   zone_id = var.zone_id
   name    = "${var.component}-${var.env}"
   type    = "A"
