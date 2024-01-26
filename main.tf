@@ -41,7 +41,7 @@ resource "aws_instance" "rabbitmq" {
   tags = merge({ Name = "${var.component}-${var.env}" }, var.tags)
 
   user_data     = templatefile("${path.module}/userdata.sh", {
-    environment = var.env
+    env = var.env
     component = var.component
   })
 }
