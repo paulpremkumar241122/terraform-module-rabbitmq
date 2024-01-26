@@ -39,5 +39,9 @@ resource "aws_instance" "rabbitmq" {
   subnet_id = var.subnet_id
   iam_instance_profile = aws_iam_instance_profile.instance_profile.name
   tags = merge({ Name = "${var.component}-${var.env}" }, var.tags)
+
+  user_data     = templatefile("${path.module}/userdata.sh", {
+    environment = var.env
+  })
 }
 
