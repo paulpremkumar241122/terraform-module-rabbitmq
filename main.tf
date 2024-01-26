@@ -42,6 +42,14 @@ resource "aws_instance" "rabbitmq" {
 
   user_data     = templatefile("${path.module}/userdata.sh", {
     environment = var.env
+    component = var.component
   })
 }
 
+resource "aws_route53_record" "www" {
+  zone_id = var.zone_id
+  name    = "${var.component}-${var.env}"
+  type    = "A"
+  ttl     = 30
+  records = [ aws_instance.rabbitmq.private_ip ]
+}
